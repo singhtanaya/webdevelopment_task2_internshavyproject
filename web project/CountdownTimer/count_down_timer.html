@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown Timer</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #ede0e0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #countdown {
+      font-size: 60px;
+      margin-top: 50px;
+    }
+
+    #countdown span {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 10px 20px;
+      background-color: #ff2e63;
+      border-radius: 5px;
+    }
+
+    #controls {
+      margin-top: 20px;
+    }
+
+    #controls button {
+      margin: 0 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <label for="hours">Hours:</label>
+    <input type="number" id="hours" min="0">
+    <label for="minutes">Minutes:</label>
+    <input type="number" id="minutes" min="0" max="59">
+    <label for="seconds">Seconds:</label>
+    <input type="number" id="seconds" min="0" max="59">
+    <button onclick="startCountdown()">Start</button>
+    <button onclick="stopCountdown()">Stop</button>
+  </div>
+  <div id="countdown"></div>
+
+  <script>
+    var countdownDate;
+    var countdown;
+
+    function startCountdown() {
+      var hoursInput = document.getElementById("hours");
+      var minutesInput = document.getElementById("minutes");
+      var secondsInput = document.getElementById("seconds");
+
+      var hours = parseInt(hoursInput.value) || 0;
+      var minutes = parseInt(minutesInput.value) || 0;
+      var seconds = parseInt(secondsInput.value) || 0;
+
+      // Convert the user input to milliseconds
+      var countdownTime = (hours * 3600 + minutes * 60 + seconds) * 1000;
+
+      // Set the target date for the countdown
+      countdownDate = new Date().getTime() + countdownTime;
+
+      // Start the countdown interval if not already running
+      if (!countdown) {
+        countdown = setInterval(updateCountdown, 1000);
+      }
+
+      // Clear the input values
+      hoursInput.value = '';
+      minutesInput.value = '';
+      secondsInput.value = '';
+    }
+
+    function stopCountdown() {
+      // Stop the countdown interval if running
+      if (countdown) {
+        clearInterval(countdown);
+        countdown = null;
+      }
+    }
+
+    function updateCountdown() {
+      var now = new Date().getTime();
+      var distance = countdownDate - now;
+
+      // Calculate the days, hours, minutes, and seconds remaining
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the countdown in the HTML element with id "countdown"
+      document.getElementById("countdown").innerHTML =
+        "<span>" + days + "</span>" +
+        "<span>" + hours + "</span>" +
+        "<span>" + minutes + "</span>" +
+        "<span>" + seconds + "</span>";
+
+      // If the countdown is finished, display "Countdown is over"
+      if (distance < 0) {
+        clearInterval(countdown);
+        countdown = null;
+        document.getElementById("countdown").innerHTML = "Countdown is over";
+      }
+    }
+  </script>
+</body>
+</html>

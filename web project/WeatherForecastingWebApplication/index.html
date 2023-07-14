@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Forecasting App</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    /* Center the box */
+    html, body {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Style the weather container */
+    .weather-container {
+      width: 400px;
+      padding: 20px;
+      border: 1px solid #eb0c0c;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+      text-align: center;
+    }
+
+    /* Style the form elements */
+    #location-form input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    #location-form button {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="weather-container">
+    <h1>Weather Forecast</h1>
+    <form id="location-form">
+      <input type="text" id="city-input" placeholder="Enter city name">
+      <button type="submit">Get Weather</button>
+    </form>
+    <div id="weather-info"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
